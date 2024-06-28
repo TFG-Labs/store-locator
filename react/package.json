@@ -23,7 +23,7 @@
     "@vtex/tsconfig": "^0.4.4",
     "apollo-cache-inmemory": "^1.6.5",
     "graphql": "^14.6.0",
-    "thefoschiniqa.store-locator": "http://thefoschiniqa.vtexassets.com/_v/public/typings/v1/thefoschiniqa.store-locator@0.0.9/public/@types/thefoschiniqa.store-locator",
+    "thefoschini.store-locator": "http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.store-locator@0.0.8/public/@types/thefoschini.store-locator",
     "typescript": "3.9.7",
     "vtex.apps-graphql": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.apps-graphql@3.16.0/public/@types/vtex.apps-graphql",
     "vtex.css-handles": "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.4/public/@types/vtex.css-handles",
