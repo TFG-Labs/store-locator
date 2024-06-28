@@ -25,19 +25,6 @@ const routes = {
   },
 }
 
-// const headers = {
-//   Accept: 'application/json',
-//   VtexIdclientAutCookie: adminUserAuthToken ?? authToken ?? '',
-//   'Content-type': 'application/json',
-// }
-
-// super(apiRoute ?? '', context, {
-//   ...options,
-//   baseURL: apiRoute,
-//   retries: 0,
-//   headers,
-// })
-
 export default class RequestHub extends ExternalClient {
   public logger: Logger
   constructor(context: IOContext, options?: InstanceOptions) {
@@ -45,9 +32,8 @@ export default class RequestHub extends ExternalClient {
       ...options,
       headers: {
         Accept: 'application/json',
-        // 'Proxy-Authorization': context.authToken,
         'Content-type': 'application/json',
-        Authorization: context.authToken,
+        Authorization: context.adminUserAuthToken ?? context.authToken ?? '',
         VtexIdclientAutCookie: context.adminUserAuthToken ?? context.authToken ?? '',
       },
     })
