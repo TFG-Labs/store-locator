@@ -33,7 +33,8 @@ export default class RequestHub extends ExternalClient {
       headers: {
         Accept: 'application/json',
         'Content-type': 'application/json',
-        Authorization: context.adminUserAuthToken ?? context.authToken ?? '',
+        // 'Proxy-Authorization': context.authToken,
+        Authorization: context.authToken,
         VtexIdclientAutCookie: context.adminUserAuthToken ?? context.authToken ?? '',
       },
     })
