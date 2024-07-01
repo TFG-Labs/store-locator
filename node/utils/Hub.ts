@@ -32,9 +32,10 @@ export default class RequestHub extends ExternalClient {
       ...options,
       headers: {
         Accept: 'application/json',
-        'Proxy-Authorization': context.authToken,
+        // 'Proxy-Authorization': context.authToken,
+        'Content-type': 'application/json',
         Authorization: context.authToken,
-        VtexIdclientAutCookie: context.authToken,
+        VtexIdclientAutCookie: context.adminUserAuthToken ?? context.authToken ?? '',
       },
     })
     this.logger = new Logger(context)
