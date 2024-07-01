@@ -23,6 +23,9 @@
     "vtex.store-sitemap": "2.x",
     "vtex.apps-graphql": "3.x"
   },
+  "scripts": {
+    "postreleasy": "vtex publish --verbose --force"
+  },
   "registries": [
     "smartcheckout"
   ],
