@@ -123,12 +123,10 @@ export const resolvers = {
         result = await hub.getStores({})
       }
 
-      const {
-        data,
-        data: { paging },
-      } = result
+      const paging = result?.data?.paging ?? {} 
+      const data = result?.data ?? {}
 
-      const pickuppoints = data.items ? data : { items: data }
+      const pickuppoints = data?.items ? data : { items: data }
 
       if (paging?.pages > 1) {
         let i = 2
@@ -142,24 +140,22 @@ export const resolvers = {
         const remainingData = await Promise.all(results)
 
         remainingData.forEach((newResult: any) => {
-          pickuppoints.items.push(...newResult.data.items)
+          pickuppoints?.items.push(...newResult.data.items)
         })
       }
 
       return {
-        items: pickuppoints.items
-          .map((item: any) => {
-            return {
-              ...item,
-              address: {
-                ...item.address,
-                country: item.address.acronym,
-              },
-            }
-          })
-          .filter((item: any) => {
-            return !!item.isActive
-          }),
+        items: Array.isArray(pickuppoints?.items)
+          ? pickuppoints.items
+              .map((item: any) => ({
+                ...item,
+                address: {
+                  ...item.address,
+                  country: item.address?.acronym,
+                },
+              }))
+              .filter((item: any) => item.isActive)
+          : [],
       }
     },
   },

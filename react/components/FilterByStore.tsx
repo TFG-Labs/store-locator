@@ -37,7 +37,7 @@ const FilterByStore = ({
     saveStoresFilter('store', value)
     setActiveDrawer(!activeDrawer)
   }
-
+  
   const resetFilter = () => {
     setStoresFilter((prev) => ({ ...prev, store: '' }))
     saveStoresFilter('store', '')

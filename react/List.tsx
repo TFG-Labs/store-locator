@@ -1,12 +1,4 @@
-/* eslint-disable vtex/prefer-early-return */
-/* eslint-disable padding-line-between-statements */
-/* eslint-disable no-restricted-imports */
-/* eslint-disable no-console */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { injectIntl, FormattedMessage } from 'react-intl'
 import { graphql, useLazyQuery, useQuery } from 'react-apollo'
 import { flowRight as compose } from 'lodash'
@@ -20,8 +12,8 @@ import STORES_SETTINGS from './queries/storesSettings.graphql'
 import Listing from './components/Listing'
 import Pinpoints from './components/Pinpoints'
 import Filter from './components/Filter'
-import { filterStoresByProvince, getStoresFilter, saveStoresFilter } from './utils'
 import EmptyList from './components/EmptyList'
+import {  filterStoresByProvince, getStoresFilter, saveStoresFilter } from './utils'
 
 const CSS_HANDLES = [
   'listContainer',
@@ -35,8 +27,25 @@ const CSS_HANDLES = [
   'loadingContainer',
 ] as const
 
-const StoreList = ({
-  orderForm: { called: ofCalled, loading: ofLoading, orderForm: ofData },
+interface StoreListProps {
+  orderForm: {
+    called: boolean
+    loading: boolean
+    orderForm: any
+  }
+  googleMapsKeys: any
+  filterByTag: string
+  icon: string
+  iconWidth: number
+  iconHeight: number
+  zoom: number
+  lat: number
+  long: number
+  sortBy?: 'distance' | string
+}
+
+const StoreList: React.FC<StoreListProps> = ({
+  orderForm: {  orderForm: ofData },
   googleMapsKeys,
   filterByTag,
   icon,
@@ -47,251 +56,177 @@ const StoreList = ({
   long,
   sortBy = 'distance',
 }) => {
-  const { data: storesSettings, loading: loadingStoresSettings } = useQuery<
-    SettingsProps
-  >(STORES_SETTINGS, { ssr: false })
-  const [getStores, { data, loading, called, error }] = useLazyQuery(
-    GET_STORES,
-    {
-      fetchPolicy: 'cache-first',
-    }
-  )
-  const [stores, setStores] = useState<SpecificationGroup[]>([])
-  const [storesFiltered, setStoresFiltered] = useState<any[]>([])
-  const [storesFilter, setStoresFilter] = useState<StoresFilter>(
-    getStoresFilter()
-  )
+  const { data: storesSettings } = useQuery(STORES_SETTINGS, { ssr: false })
+  const [getStores, { data, loading, called, error }] = useLazyQuery(GET_STORES, {
+    fetchPolicy: 'cache-first',
+  })
 
-  const [state, setState] = useState<{strikes: number, allLoaded:boolean, center: any, zoom: number}>({
+  const [stores, setStores] = useState([])
+  const [storesFiltered, setStoresFiltered] = useState<any[]>([])
+  const [storesFilter, setStoresFilter] = useState(getStoresFilter())
+  const [state, setState] = useState<{
+    strikes: number
+    allLoaded: boolean
+    center: any
+    zoom: number
+  }>({
     strikes: 0,
     allLoaded: false,
-    center: null as unknown as number[],
+    center: null,
     zoom: zoom || 8,
   })
 
   const handles = useCssHandles(CSS_HANDLES)
 
-  const loadAll = () => {
-    setState({
-      ...state,
-      allLoaded: true,
-    })
-    if (!storesFilter.store) {
-      getStores({
-        variables: {
-          latitude: lat,
-          longitude: long,
-          filterByTag: lat && long ? null : filterByTag,
-        },
-      })
-    } else {
-      getStores({
-        variables: {
-          latitude: null,
-          longitude: null,
-          filterByTag: storesFilter.store,
-        },
-      })
-    }
-  }
-
-  useEffect(() => {
-    state.strikes < 4 && loadAll()
-  }, [state.strikes])
-
-  useEffect(() => {
-    loadAll()
-  }, [storesFilter.store])
-
-  useEffect(() => {
-    if (
-      ofData?.shippingData?.address?.postalCode &&
-      ofData?.shippingData?.address?.postalCode?.indexOf('*') === -1
-    ) {
-      const [longitude, latitude] = ofData?.shippingData.address.geoCoordinates
-      getStores({
-        variables: {
-          latitude,
-          longitude,
-          filterByTag: storesFilter.store || filterByTag,
-        },
-      })
-    } else if (!loading && called && error && !state.allLoaded) {
-      state.strikes < 4 &&
-        setState((prev) => ({
-          ...prev,
-          strikes: ++prev.strikes,
-        }))
-    }
-  }, [ofData, ofCalled, ofLoading, storesFilter.store])
-  useEffect(() => {
+  const loadAll = useCallback(() => {
+    setState(prev => ({ ...prev, allLoaded: true }))
     getStores({
       variables: {
-        filterByTag: storesFilter.store || filterByTag,
+        latitude: storesFilter.store ? null : lat,
+        longitude: storesFilter.store ? null : long,
+        filterByTag: storesFilter.store || (lat && long ? null : filterByTag),
       },
     })
-  }, [storesFilter.store])
+  }, [getStores, lat, long, filterByTag])
 
-  const handleCenter = (center: any) => {
-    setState({
-      ...state,
-      center,
-    })
-  }
   useEffect(() => {
-    if (!called) return
+    if (state.strikes < 4) loadAll()
+  }, [state.strikes, loadAll])
 
-    if (data?.getStores?.items.length <= 1) {
-      setStores(data?.getStores?.items)
-      setStoresFiltered(data?.getStores?.items)
-      return
-    }
+  useEffect(() => {
+    if (!storesFilter.store) 
+    loadAll()
+  }, [storesFilter.store, loadAll])
 
-    if (data?.getStores?.items.length > 1) {
-      const storesSorted =
-        data?.getStores?.items.sort((a, b) => {
-          if (a[sortBy] < b[sortBy]) {
-            return -1
-          }
+  useEffect(() => {
+    if (storesFilter.store) {
 
-          if (a[sortBy] > b[sortBy]) {
-            return 1
-          }
-
-          return 0
-        }) ?? []
-      setStores(storesSorted)
-      if (storesFilter.province === '') {
-        setStoresFiltered(storesSorted)
-        return
+      // TODO: Generate a function to filter stores by name
+      setStoresFiltered(storesFiltered.filter(store => {
+        return store?.name?.toLowerCase().includes(storesFilter.store.toLowerCase())
       }
-      setStoresFiltered(
-        filterStoresByProvince(storesFilter.province, storesSorted)
-      )
+      ))
+    } else if (!loading && called && error && !state.allLoaded) {
+      setState(prev => ({
+        ...prev,
+        strikes: prev.strikes < 4 ? prev.strikes + 1 : prev.strikes,
+      }))
     }
-  }, [data, called])
+  }, [storesFilter.store, filterByTag])
+  console.log('Stores filtered:','Selected store:', storesFiltered.filter(store => store?.name?.toLowerCase().includes(storesFilter.store.toLowerCase())),  storesFilter.store)
 
   useEffect(() => {
-    if (storesFilter.province === '') {
-      setStoresFiltered(stores)
-      return
-    }
-    setStoresFiltered(filterStoresByProvince(storesFilter.province, stores))
-  }, [storesFilter.province])
+    if (!called || !data) return
+
+    const sortedStores = data.getStores?.items.sort((a, b) => a[sortBy] - b[sortBy]) || []
+    setStores(sortedStores)
+    setStoresFiltered(storesFilter.province ? filterStoresByProvince(storesFilter.province, sortedStores) : sortedStores)
+  }, [data, called, sortBy, storesFilter.province])
 
   useEffect(() => {
-    if (storesFiltered && storesFiltered[0]?.address.location) {
-      const { longitude, latitude } = storesFiltered[0].address.location
-      setState({ ...state, center: [longitude, latitude], zoom: 9 })
+    setStoresFiltered(storesFilter.province ? filterStoresByProvince(storesFilter.province, stores) : stores)
+  }, [storesFilter.province, stores])
+
+  useEffect(() => {
+    if (storesFiltered?.[0]?.address?.location) {
+      const location = storesFiltered[0].address.location as { longitude: number; latitude: number }
+      setState(prev => ({ ...prev, center: [location.longitude, location.latitude], zoom: 9 }))
     }
   }, [storesFiltered])
 
-  if (called && !loadingStoresSettings) {
-    let storesSettingsParsed: { stores: StoreOnStoresFilter[] } =
-      storesSettings && JSON.parse(storesSettings?.appSettings.message)
-    storesSettingsParsed = storesSettingsParsed?.stores?.length
-      ? storesSettingsParsed
-      : { stores: [] }
+  const handleCenter = useCallback((center) => {
+    setState(prev => ({ ...prev, center }))
+  }, [])
 
-    if (!loading && !!data && data.getStores.items.length === 0) {
-      state.strikes < 4 &&
-        setState((prev) => ({
-          ...prev,
-          strikes: ++prev.strikes,
-        }))
-    }
+  // if (!called || loadingStoresSettings) {
+  //   return (
+  //     <div className={`flex flex-row ${handles.listContainer}`}>
+  //       <div className="flex-col w-100">
+  //         <div className={handles.loadingContainer}>
+  //           <Spinner />
+  //         </div>
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
-    if (!state.center && data?.getStores?.items.length) {
-      const [firstResult] = data.getStores.items
+  const storesSettingsParsed = storesSettings ? JSON.parse(storesSettings.appSettings.message) : { stores: [] }
 
-      const { latitude, longitude } = firstResult.address.location
+  if (!loading && data?.getStores.items.length === 0 && state.strikes < 4) {
+    setState(prev => ({ ...prev, strikes: prev.strikes + 1 }))
+  }
 
-      const center = ofData?.shippingData?.address?.geoCoordinates ?? [
-        longitude || long,
-        latitude || lat,
-      ]
-
-      handleCenter(center)
-    }
-    
-    return (
-      <div className={`flex flex-row ${handles.listContainer}`}>
-        <div className={`flex-col w-100 ${handles.listContainerCol}`}>
-          <Filter
-            storesFilter={storesFilter}
-            setStoresFilter={setStoresFilter}
-            storesSettings={storesSettingsParsed.stores}
-          />
-          {loading && (
-            <div className={handles.loadingContainer}>
-              <Spinner />
-            </div>
-          )}
-          {!loading && !!data && googleMapsKeys?.logistics?.googleMapsKey && (
-            <div className={handles.storesMapCol}>
-              <Pinpoints
-                apiKey={googleMapsKeys.logistics.googleMapsKey}
-                className={handles.listingMapContainer}
-                items={data.getStores.items}
-                zoom={state.zoom}
-                center={state.center}
-                icon={icon}
-                iconWidth={iconWidth}
-                iconHeight={iconHeight}
-              />
-            </div>
-          )}
-          {!loading && !!data && storesFiltered.length === 0 && <EmptyList resetLink={() => {
-            saveStoresFilter('province', '')
-            saveStoresFilter('store', '')
-            setStoresFilter(getStoresFilter())
-          }} />}
-          {!loading && !!data && storesFiltered.length > 0 && (
-            <div className={handles.storesListCol}>
-              <div className={`overflow-auto h-100 ${handles.storesList}`}>
-                <Listing items={storesFiltered} onChangeCenter={handleCenter} />
-                {state.allLoaded && (
-                  <span
-                    className={`mt2 link c-link underline-hover pointer ${handles.loadAll}`}
-                    onClick={() => {
-                      loadAll()
-                    }}
-                  >
-                    <FormattedMessage id="store/load-all" />
-                  </span>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    )
+  if (!state.center && data?.getStores?.items.length) {
+    const [firstResult] = data.getStores.items
+    const { latitude, longitude } = firstResult.address.location
+    const center = ofData?.shippingData?.address?.geoCoordinates ?? [longitude || long, latitude || lat]
+    handleCenter(center)
   }
 
   return (
     <div className={`flex flex-row ${handles.listContainer}`}>
-      <div className="flex-col w-100">
-        <div className={handles.loadingContainer}>
-          <Spinner />
-        </div>
+      <div className={`flex-col w-100 ${handles.listContainerCol}`}>
+        <Filter
+          storesFilter={storesFilter}
+          setStoresFilter={setStoresFilter}
+          storesSettings={storesSettingsParsed.stores}
+        />
+        {loading && (
+          <div className={handles.loadingContainer}>
+            <Spinner />
+          </div>
+        )}
+        {!loading && data && googleMapsKeys?.logistics?.googleMapsKey && (
+          <div className={handles.storesMapCol}>
+            <Pinpoints
+              apiKey={googleMapsKeys.logistics.googleMapsKey}
+              className={handles.listingMapContainer}
+              items={data.getStores.items}
+              zoom={state.zoom}
+              center={state.center}
+              icon={icon}
+              iconWidth={iconWidth}
+              iconHeight={iconHeight}
+            />
+          </div>
+        )}
+        {!loading && data && storesFiltered.length === 0 && (
+          <EmptyList
+            resetLink={() => {
+              saveStoresFilter('province', '')
+              saveStoresFilter('store', '')
+              setStoresFilter(getStoresFilter())
+            }}
+          />
+        )}
+        {!loading && data && storesFiltered.length > 0 && (
+          <div className={handles.storesListCol}>
+            <div className={`overflow-auto h-100 ${handles.storesList}`}>
+              <Listing items={storesFiltered} onChangeCenter={handleCenter} />
+              {state.allLoaded && (
+                <span
+                  className={`mt2 link c-link underline-hover pointer ${handles.loadAll}`}
+                  onClick={loadAll}
+                >
+                  <FormattedMessage id="store/load-all" />
+                </span>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
 }
 
-export default injectIntl(
-  compose(
-    graphql(ORDER_FORM, {
-      name: 'orderForm',
-      options: {
-        ssr: false,
-      },
-    }),
-    graphql(GOOGLE_KEYS, {
-      name: 'googleMapsKeys',
-      options: {
-        ssr: false,
-      },
-    })
-  )(StoreList)
-)
+export default compose(
+  injectIntl,
+  graphql(ORDER_FORM, {
+    name: 'orderForm',
+    options: { ssr: false },
+  }),
+  graphql(GOOGLE_KEYS, {
+    name: 'googleMapsKeys',
+    options: { ssr: false },
+  })
+)(StoreList)
