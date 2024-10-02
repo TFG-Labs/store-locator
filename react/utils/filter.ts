@@ -21,6 +21,14 @@ export const filterStoresByName = (
   return stores.filter((store) => store.friendlyName.toLowerCase().includes(name.toLowerCase()))
 }
 
+export const filterStoresByProvinceAndName = (province: string, name: string, stores: any[]) => {
+  return stores?.filter((store: any) => {
+    const matchesProvince = !province || store.address?.state === province
+    const matchesName = !name || store.name.toLowerCase().includes(name.toLowerCase())
+    return matchesProvince && matchesName
+  })
+}
+
 export const saveStoresFilter = (key: string, value: string) => {
   const filterLocalStorage = window.localStorage?.getItem('storesFilter')
   const storesFilter: StoresFilter = filterLocalStorage

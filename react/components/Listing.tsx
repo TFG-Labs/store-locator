@@ -31,7 +31,7 @@ const Listing: FC<any> = ({ items, onChangeCenter }) => {
   const handleChangeCenter = (item: any, zoom: number) => {
     const { latitude, longitude } = item.address.location
 
-    onChangeCenter([longitude, latitude], zoom)
+    onChangeCenter({center: [longitude, latitude], zoom})
   }
 
   const goTo = (item: any) => {
@@ -79,7 +79,7 @@ const Listing: FC<any> = ({ items, onChangeCenter }) => {
                 <span
                   className={`mt2 link c-link underline-hover pointer ${handles.addressShowOnMap}`}
                   onClick={() => {
-                    handleChangeCenter(item, 12)
+                    handleChangeCenter(item, 14)
                   }}
                 >
                   Show on map

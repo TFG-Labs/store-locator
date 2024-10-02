@@ -13,7 +13,7 @@ import Listing from './components/Listing'
 import Pinpoints from './components/Pinpoints'
 import Filter from './components/Filter'
 import EmptyList from './components/EmptyList'
-import {  filterStoresByProvince, getStoresFilter, saveStoresFilter } from './utils'
+import {   filterStoresByProvinceAndName, getStoresFilter, saveStoresFilter } from './utils'
 
 const CSS_HANDLES = [
   'listContainer',
@@ -80,13 +80,7 @@ const StoreList: React.FC<StoreListProps> = ({
 
   const loadAll = useCallback(() => {
     setState(prev => ({ ...prev, allLoaded: true }))
-    getStores({
-      variables: {
-        latitude: storesFilter.store ? null : lat,
-        longitude: storesFilter.store ? null : long,
-        filterByTag: storesFilter.store || (lat && long ? null : filterByTag),
-      },
-    })
+    getStores()
   }, [getStores, lat, long, filterByTag])
 
   useEffect(() => {
@@ -94,38 +88,33 @@ const StoreList: React.FC<StoreListProps> = ({
   }, [state.strikes, loadAll])
 
   useEffect(() => {
-    if (!storesFilter.store) 
+    if(!called || !data)
     loadAll()
   }, [storesFilter.store, loadAll])
 
   useEffect(() => {
-    if (storesFilter.store) {
-
-      // TODO: Generate a function to filter stores by name
-      setStoresFiltered(storesFiltered.filter(store => {
-        return store?.name?.toLowerCase().includes(storesFilter.store.toLowerCase())
-      }
-      ))
+    // console.log('Filtered stores:', filteredStores)
+    if (stores) {
+      const filteredStores = filterStoresByProvinceAndName(storesFilter.province, storesFilter.store, stores)
+      setStoresFiltered(filteredStores)
     } else if (!loading && called && error && !state.allLoaded) {
       setState(prev => ({
         ...prev,
         strikes: prev.strikes < 4 ? prev.strikes + 1 : prev.strikes,
       }))
+    } else {
+      setStoresFiltered(stores)
     }
-  }, [storesFilter.store, filterByTag])
-  console.log('Stores filtered:','Selected store:', storesFiltered.filter(store => store?.name?.toLowerCase().includes(storesFilter.store.toLowerCase())),  storesFilter.store)
+  }, [storesFilter.province, storesFilter.store, filterByTag, stores])
+
+  console.log('Stores filtered:','Selected store:', storesFiltered ,storesFilter.store, storesFilter.province, data, called, loading, state)
 
   useEffect(() => {
     if (!called || !data) return
 
-    const sortedStores = data.getStores?.items.sort((a, b) => a[sortBy] - b[sortBy]) || []
+    const sortedStores = data?.getStores?.items.sort((a, b) => a[sortBy] - b[sortBy]) || []
     setStores(sortedStores)
-    setStoresFiltered(storesFilter.province ? filterStoresByProvince(storesFilter.province, sortedStores) : sortedStores)
-  }, [data, called, sortBy, storesFilter.province])
-
-  useEffect(() => {
-    setStoresFiltered(storesFilter.province ? filterStoresByProvince(storesFilter.province, stores) : stores)
-  }, [storesFilter.province, stores])
+  }, [data, called, sortBy])
 
   useEffect(() => {
     if (storesFiltered?.[0]?.address?.location) {
@@ -134,21 +123,9 @@ const StoreList: React.FC<StoreListProps> = ({
     }
   }, [storesFiltered])
 
-  const handleCenter = useCallback((center) => {
-    setState(prev => ({ ...prev, center }))
+  const handleCenter = useCallback(({center, zoom}:{center: number[], zoom?: number}) => {
+    setState(prev => ({ ...prev, center, zoom: zoom ?? prev.zoom }))
   }, [])
-
-  // if (!called || loadingStoresSettings) {
-  //   return (
-  //     <div className={`flex flex-row ${handles.listContainer}`}>
-  //       <div className="flex-col w-100">
-  //         <div className={handles.loadingContainer}>
-  //           <Spinner />
-  //         </div>
-  //       </div>
-  //     </div>
-  //   )
-  // }
 
   const storesSettingsParsed = storesSettings ? JSON.parse(storesSettings.appSettings.message) : { stores: [] }
 
@@ -160,7 +137,7 @@ const StoreList: React.FC<StoreListProps> = ({
     const [firstResult] = data.getStores.items
     const { latitude, longitude } = firstResult.address.location
     const center = ofData?.shippingData?.address?.geoCoordinates ?? [longitude || long, latitude || lat]
-    handleCenter(center)
+    handleCenter({center})
   }
 
   return (
@@ -181,7 +158,7 @@ const StoreList: React.FC<StoreListProps> = ({
             <Pinpoints
               apiKey={googleMapsKeys.logistics.googleMapsKey}
               className={handles.listingMapContainer}
-              items={data.getStores.items}
+              items={storesFiltered}
               zoom={state.zoom}
               center={state.center}
               icon={icon}
