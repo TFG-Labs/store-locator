@@ -24,7 +24,23 @@ export const filterStoresByName = (
 export const filterStoresByProvinceAndName = (province: string, name: string, stores: any[]) => {
   return stores?.filter((store: any) => {
     const matchesProvince = !province || store.address?.state === province
-    const matchesName = !name || store.name.toLowerCase().includes(name.toLowerCase())
+    
+    if (!name) return matchesProvince
+
+    // Existing search methods
+    const searchRegex = new RegExp(`^${name.replace(/[-\s]/g, '[-\\s]?')}`, 'i')
+    const searchTerms = name.split(/\s+/)
+
+    // New: Calculate word match percentage
+    const storeWords = store.name.toLowerCase().split(/\s+/)
+    const matchedWords = searchTerms.filter(term => 
+      storeWords.some(word => word.includes(term.toLowerCase()))
+    )
+    const wordMatchPercentage = (matchedWords.length / searchTerms.length) * 100
+    const matchesName = 
+      searchRegex.test(store.name) || 
+      wordMatchPercentage >= 50 && searchTerms.length > 2  // Consider a match if 50% or more words match
+
     return matchesProvince && matchesName
   })
 }

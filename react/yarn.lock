@@ -4841,9 +4841,9 @@ test-exclude@^6.0.0:
     glob "^7.1.4"
     minimatch "^3.0.4"
 
-"thefoschini.store-locator@https://lesego--thefoschini.myvtex.com/_v/private/typings/linked/v1/thefoschini.store-locator@0.0.13-beta.0+build1727905241/public/@types/thefoschini.store-locator":
+"thefoschini.store-locator@https://lesego--thefoschini.myvtex.com/_v/private/typings/linked/v1/thefoschini.store-locator@0.0.13-beta.0+build1727963956/public/@types/thefoschini.store-locator":
   version "0.0.13-beta.0"
-  resolved "https://lesego--thefoschini.myvtex.com/_v/private/typings/linked/v1/thefoschini.store-locator@0.0.13-beta.0+build1727905241/public/@types/thefoschini.store-locator#0ede97a9b1a7ecad1d988eda7d39ce4011880e28"
+  resolved "https://lesego--thefoschini.myvtex.com/_v/private/typings/linked/v1/thefoschini.store-locator@0.0.13-beta.0+build1727963956/public/@types/thefoschini.store-locator#928240048168afd8c4244165e072d53052135922"
 
 throat@^5.0.0:
   version "5.0.0"

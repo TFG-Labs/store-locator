@@ -13,7 +13,7 @@ import Listing from './components/Listing'
 import Pinpoints from './components/Pinpoints'
 import Filter from './components/Filter'
 import EmptyList from './components/EmptyList'
-import {   filterStoresByProvinceAndName, getStoresFilter, saveStoresFilter } from './utils'
+import { filterStoresByProvinceAndName, getStoresFilter, saveStoresFilter } from './utils'
 
 const CSS_HANDLES = [
   'listContainer',
@@ -62,6 +62,7 @@ const StoreList: React.FC<StoreListProps> = ({
   })
 
   const [stores, setStores] = useState([])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [storesFiltered, setStoresFiltered] = useState<any[]>([])
   const [storesFilter, setStoresFilter] = useState(getStoresFilter())
   const [state, setState] = useState<{
@@ -88,13 +89,12 @@ const StoreList: React.FC<StoreListProps> = ({
   }, [state.strikes, loadAll])
 
   useEffect(() => {
-    if(!called || !data)
     loadAll()
   }, [storesFilter.store, loadAll])
 
   useEffect(() => {
-    // console.log('Filtered stores:', filteredStores)
     if (stores) {
+      setIsLoading(true)
       const filteredStores = filterStoresByProvinceAndName(storesFilter.province, storesFilter.store, stores)
       setStoresFiltered(filteredStores)
     } else if (!loading && called && error && !state.allLoaded) {
@@ -105,9 +105,8 @@ const StoreList: React.FC<StoreListProps> = ({
     } else {
       setStoresFiltered(stores)
     }
+    setIsLoading(false)
   }, [storesFilter.province, storesFilter.store, filterByTag, stores])
-
-  console.log('Stores filtered:','Selected store:', storesFiltered ,storesFilter.store, storesFilter.province, data, called, loading, state)
 
   useEffect(() => {
     if (!called || !data) return
@@ -125,6 +124,12 @@ const StoreList: React.FC<StoreListProps> = ({
 
   const handleCenter = useCallback(({center, zoom}:{center: number[], zoom?: number}) => {
     setState(prev => ({ ...prev, center, zoom: zoom ?? prev.zoom }))
+  }, [])
+
+  const handleResetFilters = useCallback(() => {
+    saveStoresFilter('province', '')
+    saveStoresFilter('store', '')
+    setStoresFilter(getStoresFilter())
   }, [])
 
   const storesSettingsParsed = storesSettings ? JSON.parse(storesSettings.appSettings.message) : { stores: [] }
@@ -148,12 +153,12 @@ const StoreList: React.FC<StoreListProps> = ({
           setStoresFilter={setStoresFilter}
           storesSettings={storesSettingsParsed.stores}
         />
-        {loading && (
+        {loading || isLoading && (
           <div className={handles.loadingContainer}>
             <Spinner />
           </div>
         )}
-        {!loading && data && googleMapsKeys?.logistics?.googleMapsKey && (
+        {!loading && !isLoading && data && googleMapsKeys?.logistics?.googleMapsKey && (
           <div className={handles.storesMapCol}>
             <Pinpoints
               apiKey={googleMapsKeys.logistics.googleMapsKey}
@@ -170,9 +175,7 @@ const StoreList: React.FC<StoreListProps> = ({
         {!loading && data && storesFiltered.length === 0 && (
           <EmptyList
             resetLink={() => {
-              saveStoresFilter('province', '')
-              saveStoresFilter('store', '')
-              setStoresFilter(getStoresFilter())
+              handleResetFilters()
             }}
           />
         )}
@@ -183,7 +186,7 @@ const StoreList: React.FC<StoreListProps> = ({
               {state.allLoaded && (
                 <span
                   className={`mt2 link c-link underline-hover pointer ${handles.loadAll}`}
-                  onClick={loadAll}
+                  onClick={handleResetFilters}
                 >
                   <FormattedMessage id="store/load-all" />
                 </span>
