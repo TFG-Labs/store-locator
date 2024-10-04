@@ -1492,9 +1492,9 @@ tdigest@^0.1.1:
   dependencies:
     bintrees "1.0.1"
 
-"thefoschini.store-locator@https://lesego--thefoschini.myvtex.com/_v/private/typings/linked/v1/thefoschini.store-locator@0.0.13-beta.0+build1727963956/public/@types/thefoschini.store-locator":
+"thefoschini.store-locator@https://lesego--thefoschini.myvtex.com/_v/private/typings/linked/v1/thefoschini.store-locator@0.0.13-beta.0+build1728034989/public/@types/thefoschini.store-locator":
   version "0.0.13-beta.0"
-  resolved "https://lesego--thefoschini.myvtex.com/_v/private/typings/linked/v1/thefoschini.store-locator@0.0.13-beta.0+build1727963956/public/@types/thefoschini.store-locator#928240048168afd8c4244165e072d53052135922"
+  resolved "https://lesego--thefoschini.myvtex.com/_v/private/typings/linked/v1/thefoschini.store-locator@0.0.13-beta.0+build1728034989/public/@types/thefoschini.store-locator#1577a176342dc0975819f1747aee7d092c908684"
 
 thriftrw@^3.5.0:
   version "3.12.0"
@@ -1669,9 +1669,9 @@ vary@^1.1.2:
   version "2.16.4"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-sitemap@2.16.4/public/@types/vtex.store-sitemap#0da1e706617bd5d6cf0b3d569eb928b1c9ae8e75"
 
-"vtex.store@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.136.0/public/@types/vtex.store":
-  version "2.136.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.136.0/public/@types/vtex.store#ca37894cda57c42eb577be935dff645dc3b320e0"
+"vtex.store@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.137.0/public/@types/vtex.store":
+  version "2.137.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.137.0/public/@types/vtex.store#6732e3e7331229f5d33d37e841ea9c7e2d46f356"
 
 "vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.146.13/public/@types/vtex.styleguide":
   version "9.146.13"

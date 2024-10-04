@@ -123,10 +123,10 @@ export const resolvers = {
         result = await hub.getStores({})
       }
 
-      const paging = result?.data?.paging ?? {} 
-      const data = result?.data ?? {}
+      const paging = result?.data?.paging ?? {}
+      const items = result?.data?.items ?? []
 
-      const pickuppoints = data?.items ? data : { items: data }
+      const pickuppoints = { items }
 
       if (paging?.pages > 1) {
         let i = 2
