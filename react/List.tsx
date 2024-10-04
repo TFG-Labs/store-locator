@@ -153,7 +153,7 @@ const StoreList: React.FC<StoreListProps> = ({
           setStoresFilter={setStoresFilter}
           storesSettings={storesSettingsParsed.stores}
         />
-        {loading || isLoading && (
+        {loading && (
           <div className={handles.loadingContainer}>
             <Spinner />
           </div>
