@@ -165,10 +165,10 @@
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
 
-"@vtex/api@6.45.12":
-  version "6.45.12"
-  resolved "https://registry.yarnpkg.com/@vtex/api/-/api-6.45.12.tgz#b13c04398b12f576263ea823369f09c970d57479"
-  integrity sha512-SVLKo+Q/TxQy+1UKzH8GswTI3F2OCRCLfgaNQOrVAVdbM6Ci4wzTeX8j/S4Q1aEEnqBFlH/wVpHf8I6NBa+g9A==
+"@vtex/api@6.47.0":
+  version "6.47.0"
+  resolved "https://registry.yarnpkg.com/@vtex/api/-/api-6.47.0.tgz#6910455d593d8bb76f1f4f2b7660023853fda35e"
+  integrity sha512-t9gt7Q89EMbSj3rLhho+49Fv+/lQgiy8EPVRgtmmXFp1J4v8hIAZF7GPjCPie111KVs4eG0gfZFpmhA5dafKNA==
   dependencies:
     "@types/koa" "^2.11.0"
     "@types/koa-compose" "^3.2.3"
@@ -188,7 +188,7 @@
     fs-extra "^7.0.0"
     graphql "^14.5.8"
     graphql-tools "^4.0.6"
-    graphql-upload "^8.1.0"
+    graphql-upload "^13.0.0"
     jaeger-client "^3.18.0"
     js-base64 "^2.5.1"
     koa "^2.11.0"
@@ -199,7 +199,7 @@
     mime-types "^2.1.12"
     opentracing "^0.14.4"
     p-limit "^2.2.0"
-    prom-client "^12.0.0"
+    prom-client "^14.2.0"
     qs "^6.5.1"
     querystring "^0.2.0"
     ramda "^0.26.0"
@@ -709,10 +709,10 @@ fresh@~0.5.2:
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
   integrity sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
 
-fs-capacitor@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/fs-capacitor/-/fs-capacitor-2.0.4.tgz#5a22e72d40ae5078b4fe64fe4d08c0d3fc88ad3c"
-  integrity sha512-8S4f4WsCryNw2mJJchi46YgB6CR5Ze+4L1h8ewl9tEpL4SJ3ZO+c/bS4BWhB8bK+O3TMqhuZarTitd0S0eh2pA==
+fs-capacitor@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/fs-capacitor/-/fs-capacitor-6.2.0.tgz#fa79ac6576629163cb84561995602d8999afb7f5"
+  integrity sha512-nKcE1UduoSKX27NSZlg879LdQc94OtbOsEmKMN2MBNudXREvijRKx2GEBsTMTfws+BrbkJoEuynbGSVRSpauvw==
 
 fs-constants@^1.0.0:
   version "1.0.0"
@@ -761,15 +761,15 @@ graphql-tools@^4.0.6:
     iterall "^1.1.3"
     uuid "^3.1.0"
 
-graphql-upload@^8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/graphql-upload/-/graphql-upload-8.1.0.tgz#6d0ab662db5677a68bfb1f2c870ab2544c14939a"
-  integrity sha512-U2OiDI5VxYmzRKw0Z2dmfk0zkqMRaecH9Smh1U277gVgVe9Qn+18xqf4skwr4YJszGIh7iQDZ57+5ygOK9sM/Q==
+graphql-upload@^13.0.0:
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/graphql-upload/-/graphql-upload-13.0.0.tgz#1a255b64d3cbf3c9f9171fa62a8fb0b9b59bb1d9"
+  integrity sha512-YKhx8m/uOtKu4Y1UzBFJhbBGJTlk7k4CydlUUiNrtxnwZv0WigbRHP+DVhRNKt7u7DXOtcKZeYJlGtnMXvreXA==
   dependencies:
     busboy "^0.3.1"
-    fs-capacitor "^2.0.4"
-    http-errors "^1.7.3"
-    object-path "^0.11.4"
+    fs-capacitor "^6.2.0"
+    http-errors "^1.8.1"
+    object-path "^0.11.8"
 
 graphql@^14.5.8:
   version "14.7.0"
@@ -801,7 +801,7 @@ http-assert@^1.3.0:
     deep-equal "~1.0.1"
     http-errors "~1.7.2"
 
-http-errors@1.7.3, http-errors@^1.7.3, http-errors@~1.7.2:
+http-errors@1.7.3, http-errors@~1.7.2:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/http-errors/-/http-errors-1.7.3.tgz#6c619e4f9c60308c38519498c14fbb10aacebb06"
   integrity sha512-ZTTX0MWrsQ2ZAhA1cejAwDLycFsd7I7nVtnkT3Ol0aqodaKW+0CTZDQ1uBv5whptCnc8e8HeRRJxRs0kmm/Qfw==
@@ -822,6 +822,17 @@ http-errors@^1.3.1, http-errors@^1.6.3:
     setprototypeof "1.2.0"
     statuses ">= 1.5.0 < 2"
     toidentifier "1.0.0"
+
+http-errors@^1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/http-errors/-/http-errors-1.8.1.tgz#7c3f28577cbc8a207388455dbd62295ed07bd68c"
+  integrity sha512-Kpk9Sm7NmI+RHhnj6OIWDI1d6fIoFAtFt9RLaTMRlg/8w49juAStsrBgp0Dp4OdxdVbRIeKhtCUvoi/RuAhO4g==
+  dependencies:
+    depd "~1.1.2"
+    inherits "2.0.4"
+    setprototypeof "1.2.0"
+    statuses ">= 1.5.0 < 2"
+    toidentifier "1.0.1"
 
 humanize-ms@^1.2.1:
   version "1.2.1"
@@ -1209,10 +1220,10 @@ normalize-path@^3.0.0:
   resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-3.0.0.tgz#0dcd69ff23a1c9b11fd0978316644a0388216a65"
   integrity sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==
 
-object-path@^0.11.4:
-  version "0.11.4"
-  resolved "https://registry.yarnpkg.com/object-path/-/object-path-0.11.4.tgz#370ae752fbf37de3ea70a861c23bba8915691949"
-  integrity sha1-NwrnUvvzfePqcKhhwju6iRVpGUk=
+object-path@^0.11.8:
+  version "0.11.8"
+  resolved "https://registry.yarnpkg.com/object-path/-/object-path-0.11.8.tgz#ed002c02bbdd0070b78a27455e8ae01fc14d4742"
+  integrity sha512-YJjNZrlXJFM42wTBn6zgOJVar9KFJvzx6sTWDte8sWZF//cnjl0BxHNpfZx+ZffXX63A9q0b1zsFiBX4g4X5KA==
 
 on-finished@^2.3.0:
   version "2.3.0"
@@ -1282,10 +1293,10 @@ process@^0.10.0:
   resolved "https://registry.yarnpkg.com/process/-/process-0.10.1.tgz#842457cc51cfed72dc775afeeafb8c6034372725"
   integrity sha1-hCRXzFHP7XLcd1r+6vuMYDQ3JyU=
 
-prom-client@^12.0.0:
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/prom-client/-/prom-client-12.0.0.tgz#9689379b19bd3f6ab88a9866124db9da3d76c6ed"
-  integrity sha512-JbzzHnw0VDwCvoqf8y1WDtq4wSBAbthMB1pcVI/0lzdqHGJI3KBJDXle70XK+c7Iv93Gihqo0a5LlOn+g8+DrQ==
+prom-client@^14.2.0:
+  version "14.2.0"
+  resolved "https://registry.yarnpkg.com/prom-client/-/prom-client-14.2.0.tgz#ca94504e64156f6506574c25fb1c34df7812cf11"
+  integrity sha512-sF308EhTenb/pDRPakm+WgiN+VdM/T1RaHj1x+MvAuT8UiQP8JmOEbxVqtkbfR4LrvOg5n7ic01kRBDGXjYikA==
   dependencies:
     tdigest "^0.1.1"
 
@@ -1481,9 +1492,9 @@ tdigest@^0.1.1:
   dependencies:
     bintrees "1.0.1"
 
-"thefoschini.store-locator@http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.store-locator@0.0.8/public/@types/thefoschini.store-locator":
-  version "0.0.8"
-  resolved "http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.store-locator@0.0.8/public/@types/thefoschini.store-locator#57e507f91a05e2cb7acd444583265649fbdbf8de"
+"thefoschini.store-locator@https://lesego--thefoschini.myvtex.com/_v/private/typings/linked/v1/thefoschini.store-locator@0.0.13-beta.0+build1728036161/public/@types/thefoschini.store-locator":
+  version "0.0.13-beta.0"
+  resolved "https://lesego--thefoschini.myvtex.com/_v/private/typings/linked/v1/thefoschini.store-locator@0.0.13-beta.0+build1728036161/public/@types/thefoschini.store-locator#6b1b31f189ed94f9f69c7e4e8f6f7e0c6141ddec"
 
 thriftrw@^3.5.0:
   version "3.12.0"
@@ -1498,6 +1509,11 @@ toidentifier@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
   integrity sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
+
+toidentifier@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.1.tgz#3be34321a88a820ed1bd80dfaa33e479fbb8dd35"
+  integrity sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==
 
 tokenbucket@^0.3.2:
   version "0.3.2"
@@ -1625,9 +1641,9 @@ vary@^1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-"vtex.apps-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.apps-graphql@2.13.0/public/@types/vtex.apps-graphql":
-  version "2.13.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.apps-graphql@2.13.0/public/@types/vtex.apps-graphql#446076946e3729d8b7d2f775f53cd38daf490ec1"
+"vtex.apps-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.apps-graphql@2.13.4/public/@types/vtex.apps-graphql":
+  version "2.13.4"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.apps-graphql@2.13.4/public/@types/vtex.apps-graphql#c43ada77d187ab1c3111554a2a80427c846f0093"
 
 "vtex.css-handles@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.css-handles@0.4.4/public/@types/vtex.css-handles":
   version "0.4.4"
@@ -1637,29 +1653,29 @@ vary@^1.1.2:
   version "0.21.3"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.flex-layout@0.21.3/public/@types/vtex.flex-layout#407f0e310545ff006f08afb35f5d38ace4546435"
 
-"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.134.2/public/@types/vtex.render-runtime":
-  version "8.134.2"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.134.2/public/@types/vtex.render-runtime#ae69e2b2a471291c6c6b155e17510150fbfc2d0e"
+"vtex.render-runtime@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.134.11/public/@types/vtex.render-runtime":
+  version "8.134.11"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.render-runtime@8.134.11/public/@types/vtex.render-runtime#0e42a00ac9b26c34b5b18b7a080f7dc3a5ac9959"
 
 "vtex.rich-text@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.rich-text@0.16.0/public/@types/vtex.rich-text":
   version "0.16.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.rich-text@0.16.0/public/@types/vtex.rich-text#0cdcaccffb37ae0d025894ba7055f69bc3c9aa30"
 
-"vtex.store-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.170.3/public/@types/vtex.store-graphql":
-  version "2.170.3"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.170.3/public/@types/vtex.store-graphql#611713e5056f3db60f096b05833fbcb101f36645"
+"vtex.store-graphql@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.171.2/public/@types/vtex.store-graphql":
+  version "2.171.2"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-graphql@2.171.2/public/@types/vtex.store-graphql#9af688371fd472d455029ab3aa2588b51a66680e"
 
-"vtex.store-sitemap@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-sitemap@2.15.2/public/@types/vtex.store-sitemap":
-  version "2.15.2"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-sitemap@2.15.2/public/@types/vtex.store-sitemap#45725c0d28587d331db58528dd9668e60f748704"
+"vtex.store-sitemap@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-sitemap@2.16.4/public/@types/vtex.store-sitemap":
+  version "2.16.4"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store-sitemap@2.16.4/public/@types/vtex.store-sitemap#0da1e706617bd5d6cf0b3d569eb928b1c9ae8e75"
 
-"vtex.store@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.136.0/public/@types/vtex.store":
-  version "2.136.0"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.136.0/public/@types/vtex.store#ca37894cda57c42eb577be935dff645dc3b320e0"
+"vtex.store@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.137.0/public/@types/vtex.store":
+  version "2.137.0"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.137.0/public/@types/vtex.store#6732e3e7331229f5d33d37e841ea9c7e2d46f356"
 
-"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.146.9/public/@types/vtex.styleguide":
-  version "9.146.9"
-  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.146.9/public/@types/vtex.styleguide#d1601fedfb665c6173334753171717da64e670bc"
+"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.146.13/public/@types/vtex.styleguide":
+  version "9.146.13"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.146.13/public/@types/vtex.styleguide#f4ccbc54621bf5114ddd115b6032ae320f2eba55"
 
 wrappy@1:
   version "1.0.2"
