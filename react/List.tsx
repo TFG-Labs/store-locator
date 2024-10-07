@@ -134,10 +134,6 @@ const StoreList: React.FC<StoreListProps> = ({
 
   const storesSettingsParsed = storesSettings ? JSON.parse(storesSettings.appSettings.message) : { stores: [] }
 
-  console.log('====================================');
-  console.log(storesSettingsParsed, 'storesSettingsParsed');
-  console.log('====================================');
-
   if (!loading && data?.getStores.items.length === 0 && state.strikes < 4) {
     setState(prev => ({ ...prev, strikes: prev.strikes + 1 }))
   }
