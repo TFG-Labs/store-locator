@@ -15,7 +15,7 @@
     "@types/ramda": "types/npm-ramda#dist",
     "@vtex/api": "6.47.0",
     "@vtex/prettier-config": "^0.3.1",
-    "thefoschini.store-locator": "http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.store-locator@0.0.17/public/@types/thefoschini.store-locator",
+    "thefoschini.store-locator": "https://testing--thefoschini.myvtex.com/_v/private/typings/linked/v1/thefoschini.store-locator@0.0.19+build1728305875/public/@types/thefoschini.store-locator",
     "tslint": "^5.12.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-config-vtex": "^2.1.0",

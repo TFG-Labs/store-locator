@@ -52,7 +52,7 @@ interface StoreOnStoresFilter {
 
 
 interface SettingsProps {
-  publicSettingsForApp: Settings
+  appSettings: Settings
 }
 
 interface Settings {

@@ -1492,9 +1492,9 @@ tdigest@^0.1.1:
   dependencies:
     bintrees "1.0.1"
 
-"thefoschini.store-locator@http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.store-locator@0.0.17/public/@types/thefoschini.store-locator":
-  version "0.0.17"
-  resolved "http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.store-locator@0.0.17/public/@types/thefoschini.store-locator#036baa29c6928431caa6d602e715d35fa46b480c"
+"thefoschini.store-locator@https://testing--thefoschini.myvtex.com/_v/private/typings/linked/v1/thefoschini.store-locator@0.0.19+build1728305875/public/@types/thefoschini.store-locator":
+  version "0.0.19"
+  resolved "https://testing--thefoschini.myvtex.com/_v/private/typings/linked/v1/thefoschini.store-locator@0.0.19+build1728305875/public/@types/thefoschini.store-locator#ae7e54edd3d1b21945d1d020b2bfa80ff1daf1cc"
 
 thriftrw@^3.5.0:
   version "3.12.0"

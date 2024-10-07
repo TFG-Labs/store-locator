@@ -56,7 +56,7 @@ const StoreList: React.FC<StoreListProps> = ({
   long,
   sortBy = 'distance',
 }) => {
-  const { data: storesSettings } = useQuery(STORES_SETTINGS, { ssr: false })
+  const { data: storesSettings, loading: storesLoading, error: storesError } = useQuery(STORES_SETTINGS, { ssr: false })
   const [getStores, { data, loading, called, error }] = useLazyQuery(GET_STORES, {
     fetchPolicy: 'cache-first',
   })
@@ -132,10 +132,12 @@ const StoreList: React.FC<StoreListProps> = ({
     setStoresFilter(getStoresFilter())
   }, [])
 
-  const storesSettingsParsed = storesSettings ? JSON.parse(storesSettings.appSettings.message) : { stores: [] }
+  const storesSettingsParsed = storesSettings?.appSettings?.message
+    ? JSON.parse(storesSettings.appSettings.message)
+    : { stores: [] }
 
   console.log('====================================');
-  console.log(storesSettingsParsed, 'storesSettingsParsed');
+  console.log(storesSettingsParsed, storesLoading, storesError,'storesSettingsParsed');
   console.log('====================================');
 
   if (!loading && data?.getStores.items.length === 0 && state.strikes < 4) {
