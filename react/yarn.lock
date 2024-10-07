@@ -4841,9 +4841,9 @@ test-exclude@^6.0.0:
     glob "^7.1.4"
     minimatch "^3.0.4"
 
-"thefoschini.store-locator@http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.store-locator@0.0.14/public/@types/thefoschini.store-locator":
-  version "0.0.14"
-  resolved "http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.store-locator@0.0.14/public/@types/thefoschini.store-locator#d52ae684b2149da77dfd298212ae0be9c4868783"
+"thefoschini.store-locator@http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.store-locator@0.0.15/public/@types/thefoschini.store-locator":
+  version "0.0.15"
+  resolved "http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.store-locator@0.0.15/public/@types/thefoschini.store-locator#1f1aecf490e37b5e3d293395c0b2ccc0fb1fab65"
 
 throat@^5.0.0:
   version "5.0.0"
