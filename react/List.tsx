@@ -159,11 +159,7 @@ const StoreList: React.FC<StoreListProps> = memo(({
           setStoresFilter={setStoresFilter}
           storesSettings={storesSettingsParsed.stores}
         />
-        {loading && (
-          <div className={handles.loadingContainer}>
-            <Spinner />
-          </div>
-        )}
+        
         {!loading && !isLoading && data && googleMapsKeys?.logistics?.googleMapsKey && (
           <div className={handles.storesMapCol}>
             <Pinpoints
@@ -197,6 +193,13 @@ const StoreList: React.FC<StoreListProps> = memo(({
                   <FormattedMessage id="store/load-all" />
                 </span>
               )}
+            </div>
+          </div>
+        )}
+        {loading && (
+          <div className={handles.storesListCol}>
+            <div className={handles.loadingContainer}>
+              <Spinner />
             </div>
           </div>
         )}
