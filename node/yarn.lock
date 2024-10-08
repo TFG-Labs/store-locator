@@ -1492,9 +1492,9 @@ tdigest@^0.1.1:
   dependencies:
     bintrees "1.0.1"
 
-"thefoschini.store-locator@http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.store-locator@0.0.17/public/@types/thefoschini.store-locator":
-  version "0.0.17"
-  resolved "http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.store-locator@0.0.17/public/@types/thefoschini.store-locator#036baa29c6928431caa6d602e715d35fa46b480c"
+"thefoschini.store-locator@http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.store-locator@0.0.21/public/@types/thefoschini.store-locator":
+  version "0.0.21"
+  resolved "http://thefoschini.vtexassets.com/_v/public/typings/v1/thefoschini.store-locator@0.0.21/public/@types/thefoschini.store-locator#8c80640b15488a69c3f09ca18c187909c315ed0d"
 
 thriftrw@^3.5.0:
   version "3.12.0"
@@ -1672,6 +1672,10 @@ vary@^1.1.2:
 "vtex.store@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.137.0/public/@types/vtex.store":
   version "2.137.0"
   resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.store@2.137.0/public/@types/vtex.store#6732e3e7331229f5d33d37e841ea9c7e2d46f356"
+
+"vtex.styleguide@http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.146.13/public/@types/vtex.styleguide":
+  version "9.146.13"
+  resolved "http://vtex.vtexassets.com/_v/public/typings/v1/vtex.styleguide@9.146.13/public/@types/vtex.styleguide#f4ccbc54621bf5114ddd115b6032ae320f2eba55"
 
 wrappy@1:
   version "1.0.2"
