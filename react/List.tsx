@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, memo } from 'react'
 import { injectIntl, FormattedMessage } from 'react-intl'
 import { graphql, useLazyQuery, useQuery } from 'react-apollo'
 import { flowRight as compose } from 'lodash'
@@ -44,7 +44,7 @@ interface StoreListProps {
   sortBy?: 'distance' | string
 }
 
-const StoreList: React.FC<StoreListProps> = ({
+const StoreList: React.FC<StoreListProps> = memo(({
   orderForm: {  orderForm: ofData },
   googleMapsKeys,
   filterByTag,
@@ -203,7 +203,7 @@ const StoreList: React.FC<StoreListProps> = ({
       </div>
     </div>
   )
-}
+})
 
 export default compose(
   injectIntl,
@@ -215,4 +215,4 @@ export default compose(
     name: 'googleMapsKeys',
     options: { ssr: false },
   })
-)(StoreList)
+)(memo(StoreList))
