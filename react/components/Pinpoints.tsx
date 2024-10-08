@@ -13,6 +13,7 @@ import {
 import slugify from "slugify";
 import { useRuntime } from "vtex.render-runtime";
 import { useCssHandles } from "vtex.css-handles";
+import { Spinner } from "vtex.styleguide";
 
 const Slugify = (str: string) => {
   return slugify(str, { lower: true, remove: /[*+~.()'"!:@]/g });
@@ -83,7 +84,13 @@ const Pinpoints = (props: any) => {
     };
   }
 
-  if (!isLoaded) return null;
+  if (!isLoaded) {
+    return (
+      <div style={{ height: "100%" }} className={props.className}>
+        <Spinner />
+      </div>
+    );
+  }
   
   return (
     <GoogleMap
